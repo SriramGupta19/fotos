@@ -30,7 +30,7 @@
             padding: 0 var(--spacing);
         }
 
-        /* --- NAVIGATION (Optimized for side-by-side) --- */
+        /* --- NAVIGATION --- */
         nav {
             display: flex;
             justify-content: space-between;
@@ -44,30 +44,30 @@
             background: rgba(10, 10, 10, 0.85);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
-            flex-wrap: nowrap; /* Prevents wrapping on small screens */
+            flex-wrap: nowrap;
         }
 
         .logo {
             font-family: 'Syncopate', sans-serif;
             font-weight: 700;
-            font-size: clamp(0.75rem, 2vw, 1.1rem); /* Smaller starting size for mobile */
+            font-size: clamp(0.75rem, 2vw, 1.1rem);
             letter-spacing: 1px;
             text-decoration: none;
             color: var(--text-color);
             text-transform: uppercase;
-            white-space: nowrap; /* Keeps name on one line */
+            white-space: nowrap;
         }
 
         .nav-links {
             display: flex;
             align-items: center;
-            gap: 15px; /* Spacing between links */
+            gap: 15px;
         }
 
         .nav-links a {
             text-decoration: none;
             color: var(--dim-text);
-            font-size: 0.65rem; /* Slightly smaller for better fit */
+            font-size: 0.65rem;
             text-transform: uppercase;
             letter-spacing: 1px;
             transition: 0.3s ease;
@@ -128,10 +128,26 @@
             transition: all 0.8s ease;
         }
 
-        .gallery-item:hover img {
+        /* WEB HOVER EFFECT */
+        @media (hover: hover) {
+            .gallery-item:hover img {
+                filter: grayscale(0%);
+                opacity: 1;
+                transform: scale(1.02);
+            }
+            .gallery-item:hover::after {
+                opacity: 1;
+            }
+        }
+
+        /* MOBILE SCROLL ACTIVE STATE (Triggered by JS) */
+        .gallery-item.active img {
             filter: grayscale(0%);
             opacity: 1;
             transform: scale(1.02);
+        }
+        .gallery-item.active::after {
+            opacity: 1;
         }
 
         .gallery-item::after {
@@ -147,10 +163,6 @@
             opacity: 0;
             transition: 0.3s;
             pointer-events: none;
-        }
-
-        .gallery-item:hover::after {
-            opacity: 1;
         }
 
         /* --- FOOTER --- */
@@ -169,7 +181,7 @@
         }
 
         @media (max-width: 768px) {
-            :root { --spacing: 1.2rem; } /* Slightly tighter spacing for mobile */
+            :root { --spacing: 1.2rem; }
             header { margin-top: 18vh; }
             header h1 { letter-spacing: -1px; }
             header p { max-width: 100%; }
@@ -180,17 +192,12 @@
             }
 
             .gallery-item { margin-bottom: 12px; }
-
-            .gallery-item img {
-                filter: grayscale(0%);
-                opacity: 1;
-            }
         }
 
         @media (max-width: 480px) {
             .gallery { column-count: 1; }
-            .nav-links { gap: 10px; } /* Tighter gap for very small screens */
-            .logo { letter-spacing: 0px; } /* Saves space */
+            .nav-links { gap: 10px; }
+            .logo { letter-spacing: 0px; }
         }
     </style>
 </head>
@@ -222,7 +229,7 @@
         <div class="gallery-item" data-label="004 / HORIZON">
             <img src="images/4.jpeg" alt="Visual 04">
         </div>
-        <div class="gallery-item" data-label="005 / WITNESS">
+        <div class="gallery-item" data-label="005 / SOLITUDE">
             <img src="images/5.jpeg" alt="Visual 05">
         </div>
         <div class="gallery-item" data-label="006 / ETHER">
@@ -234,5 +241,30 @@
         <p>&copy; 2026 M. S. R. GUPTA | All Perspectives Reserved.</p>
     </footer>
 
+    <script>
+        // Use Intersection Observer to detect when images enter the center of the viewport
+        const observerOptions = {
+            root: null, // use the viewport
+            rootMargin: '-20% 0px -20% 0px', // trigger when image is in the center 60% of the screen
+            threshold: 0.5 // trigger when 50% of the image is visible
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (window.innerWidth <= 768) { // Only apply scroll effect on mobile
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    } else {
+                        entry.target.classList.remove('active');
+                    }
+                }
+            });
+        }, observerOptions);
+
+        // Apply observer to all gallery items
+        document.querySelectorAll('.gallery-item').forEach(item => {
+            observer.observe(item);
+        });
+    </script>
 </body>
 </html>
