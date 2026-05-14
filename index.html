@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>M. S. R. GUPTA | Photography</title>
+    <title>M. S. R. GUPTA | Portfolio</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Inter:wght@300;500&display=swap" rel="stylesheet">
@@ -13,7 +13,7 @@
             --text-color: #f5f5f5;
             --accent-color: #4a4a4a;
             --dim-text: #888;
-            --spacing: 5vw; /* Fluid spacing based on screen width */
+            --spacing: 5vw;
         }
 
         * {
@@ -42,10 +42,9 @@
             width: 100%;
             padding: 1.5rem var(--spacing);
             z-index: 1000;
-            /* Glassmorphism for mobile & web readability */
-            background: rgba(10, 10, 10, 0.8);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            background: rgba(10, 10, 10, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
         }
 
         .logo {
@@ -58,35 +57,29 @@
             text-transform: uppercase;
         }
 
-        .nav-links {
-            display: flex;
-            gap: 20px;
-        }
-
         .nav-links a {
             text-decoration: none;
             color: var(--dim-text);
             font-size: 0.7rem;
             text-transform: uppercase;
             letter-spacing: 1px;
+            margin-left: 20px;
             transition: 0.3s ease;
         }
 
-        .nav-links a:hover {
-            color: var(--text-color);
-        }
+        .nav-links a:hover { color: var(--text-color); }
 
         /* --- HEADER --- */
         header {
-            margin: 20vh 0 10vh 0;
+            margin: 22vh 0 12vh 0;
             max-width: 1200px;
         }
 
         header h1 {
             font-family: 'Syncopate', sans-serif;
-            font-size: clamp(2.5rem, 10vw, 6.5rem); /* Extremely responsive size */
+            font-size: clamp(2.5rem, 9vw, 6.5rem);
             font-weight: 700;
-            line-height: 0.85;
+            line-height: 0.9;
             text-transform: uppercase;
             margin-bottom: 3rem;
             letter-spacing: -3px;
@@ -95,68 +88,64 @@
         header p {
             font-size: clamp(0.9rem, 1.5vw, 1.1rem);
             color: var(--dim-text);
-            max-width: 400px;
+            max-width: 420px;
             margin-left: auto;
             border-left: 1px solid var(--accent-color);
             padding: 0.5rem 0 0.5rem 2rem;
         }
 
-        /* --- CREATIVE GRID (Desktop & Tablet) --- */
+        /* --- NON-CROPPING CREATIVE GRID --- */
         .gallery {
             display: grid;
             grid-template-columns: repeat(12, 1fr);
-            gap: 2vw;
+            gap: 4vw;
             margin-bottom: 15vh;
+            align-items: start; /* Ensures items stay at their natural height */
         }
 
         .gallery-item {
             position: relative;
-            overflow: hidden;
-            background-color: #111;
+            background-color: transparent; /* Removed background to avoid "box" feel */
             transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
         }
 
-        /* Desktop Staggered Logic */
-        .gallery-item:nth-child(1) { grid-column: span 7; height: 60vh; }
-        .gallery-item:nth-child(2) { grid-column: span 5; height: 50vh; margin-top: 10vh; }
-        .gallery-item:nth-child(3) { grid-column: span 12; height: 80vh; margin: 5vh 0; }
-        .gallery-item:nth-child(4) { grid-column: span 5; height: 55vh; }
-        .gallery-item:nth-child(5) { grid-column: span 7; height: 65vh; margin-top: -5vh; }
+        /* Desktop Positioning Logic - Width based, heights remain natural */
+        .gallery-item:nth-child(1) { grid-column: span 7; }
+        .gallery-item:nth-child(2) { grid-column: span 5; margin-top: 15vh; }
+        .gallery-item:nth-child(3) { grid-column: span 10; grid-offset: 1; margin: 8vh auto; }
+        .gallery-item:nth-child(4) { grid-column: span 6; }
+        .gallery-item:nth-child(5) { grid-column: span 5; margin-top: -10vh; margin-left: 2vw; }
 
         .gallery-item img {
             width: 100%;
-            height: 100%;
-            object-fit: cover;
+            height: auto; /* Natural aspect ratio maintained */
             display: block;
             filter: grayscale(100%);
-            opacity: 0.6;
+            opacity: 0.7;
             transition: all 0.9s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .gallery-item:hover img {
             filter: grayscale(0%);
             opacity: 1;
-            transform: scale(1.05);
+            transform: scale(1.02);
         }
 
-        /* Caption Overlay */
+        /* Data Labels */
         .gallery-item::after {
             content: attr(data-label);
             position: absolute;
-            bottom: 20px;
-            left: 20px;
-            font-size: 0.65rem;
+            bottom: -25px; /* Positioned below the photo */
+            left: 0;
+            font-size: 0.6rem;
             font-family: 'Syncopate';
-            color: #fff;
+            color: var(--dim-text);
             opacity: 0;
-            transform: translateY(10px);
             transition: 0.4s;
-            pointer-events: none;
         }
 
         .gallery-item:hover::after {
             opacity: 1;
-            transform: translateY(0);
         }
 
         /* --- FOOTER --- */
@@ -172,21 +161,18 @@
             color: var(--dim-text);
         }
 
-        /* --- MOBILE RESPONSIVENESS (Max 768px) --- */
+        /* --- MOBILE RESPONSIVENESS --- */
         @media (max-width: 768px) {
             :root { --spacing: 1.5rem; }
             
-            nav { padding: 1rem var(--spacing); }
+            header { margin-top: 18vh; }
+            header h1 { letter-spacing: -1px; }
+            header p { margin-left: 0; }
 
-            header { margin-top: 15vh; }
-            header h1 { letter-spacing: -1px; margin-bottom: 2rem; }
-            header p { margin-left: 0; max-width: 100%; }
-
-            /* Flatten the grid for mobile scrollability */
             .gallery {
                 display: flex;
                 flex-direction: column;
-                gap: 1.5rem;
+                gap: 4rem; /* More space for labels on mobile */
             }
 
             .gallery-item, 
@@ -194,17 +180,15 @@
                 grid-column: span 12 !important; 
                 margin-top: 0 !important; 
                 margin-bottom: 0 !important;
-                height: 60vh !important;
             }
 
-            /* On mobile, show color and label by default since there's no "hover" */
             .gallery-item img {
                 filter: grayscale(0%);
-                opacity: 0.9;
+                opacity: 1;
             }
             .gallery-item::after {
                 opacity: 1;
-                transform: translateY(0);
+                bottom: -20px;
             }
         }
     </style>
@@ -215,36 +199,36 @@
         <a href="#" class="logo">M.S.R. GUPTA</a>
         <div class="nav-links">
             <a href="#work">Work</a>
-            <a href="mailto:sriramgupta21@gmail.com">Contact</a>
+            <a href="mailto:hello@example.com">Contact</a>
         </div>
     </nav>
 
     <header>
         <h1>Static <br>Moments <br>In Motion.</h1>
-       <p>A collection of visual experiments exploring the intersection of light, architecture, and solitude.</p>
+        <p>A collection of visual experiments exploring the intersection of light, fragments, and fleeting perspectives.</p>
     </header>
 
     <main class="gallery" id="work">
-        <div class="gallery-item" data-label="01 / CONCRETE">
+        <!-- These will now scale perfectly without cropping -->
+        <div class="gallery-item" data-label="01 / MONOLITH">
             <img src="https://images.unsplash.com/photo-1449034446853-66c86144b0ad?auto=format&fit=crop&q=80&w=1200" alt="Architecture">
         </div>
-        <div class="gallery-item" data-label="02 / SOLITUDE">
+        <div class="gallery-item" data-label="02 / SHADOWS">
             <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=1200" alt="Portrait">
         </div>
-        <div class="gallery-item" data-label="03 / HORIZON">
-            <img src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&q=80&w=1600" alt="Nature">
+        <div class="gallery-item" data-label="03 / EXPANSIONS">
+            <img src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&q=80&w=1800" alt="Nature">
         </div>
-        <div class="gallery-item" data-label="04 / NOCTURNAL">
+        <div class="gallery-item" data-label="04 / NIGHTFALL">
             <img src="https://images.unsplash.com/photo-1496449903678-68ddcb189a24?auto=format&fit=crop&q=80&w=1200" alt="Urban">
         </div>
-        <div class="gallery-item" data-label="05 / GLASS">
+        <div class="gallery-item" data-label="05 / PERSPECTIVE">
             <img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&q=80&w=1200" alt="Camera">
         </div>
     </main>
 
     <footer>
         <p>&copy; 2026 M. S. R. GUPTA</p>
-        <p>Photography & Art</p>
     </footer>
 
 </body>
