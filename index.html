@@ -68,10 +68,12 @@
 
         .nav-links a:hover { color: var(--text-color); }
 
-        /* --- HEADER --- */
+        /* --- HEADER (Repositioned Caption) --- */
         header {
-            margin: 22vh 0 10vh 0;
-            max-width: 1200px;
+            margin: 25vh 0 12vh 0;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start; /* Keeps everything grouped on the left */
         }
 
         header h1 {
@@ -80,22 +82,22 @@
             font-weight: 700;
             line-height: 0.9;
             text-transform: uppercase;
-            margin-bottom: 2.5rem;
+            margin-bottom: 2rem;
             letter-spacing: -3px;
         }
 
         header p {
-            font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+            font-size: clamp(0.85rem, 1.2vw, 1rem);
             color: var(--dim-text);
-            max-width: 450px;
-            margin-left: auto;
-            border-left: 1px solid var(--accent-color);
-            padding: 0.5rem 0 0.5rem 2rem;
+            max-width: 500px;
+            border-top: 1px solid var(--accent-color); /* Line above text instead of side */
+            padding-top: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         /* --- SMART MASONRY LAYOUT --- */
         .gallery {
-            /* This creates columns that images flow into */
             column-count: 2; 
             column-gap: 3vw;
             width: 100%;
@@ -103,7 +105,6 @@
         }
 
         .gallery-item {
-            /* Critical for column layout to prevent image splitting */
             break-inside: avoid;
             margin-bottom: 3vw; 
             position: relative;
@@ -125,7 +126,6 @@
             transform: scale(1.02);
         }
 
-        /* Label styling - tight and minimal */
         .gallery-item::after {
             content: attr(data-label);
             position: absolute;
@@ -156,29 +156,22 @@
         }
 
         /* --- RESPONSIVE ADJUSTMENTS --- */
-        
-        /* Tablet view - 3 columns */
         @media (min-width: 1024px) {
-            .gallery {
-                column-count: 3;
-            }
+            .gallery { column-count: 3; }
         }
 
-        /* Mobile view - Tighten up spacing */
         @media (max-width: 768px) {
-            :root { --spacing: 1.2rem; }
-            header { margin-top: 15vh; }
+            :root { --spacing: 1.5rem; }
+            header { margin-top: 18vh; }
             header h1 { letter-spacing: -1px; }
-            header p { margin-left: 0; border-left: none; padding-left: 0; border-top: 1px solid var(--accent-color); padding-top: 1rem; }
+            header p { max-width: 100%; }
 
             .gallery {
-                column-count: 2; /* Still 2 columns on mobile so it doesn't look like a single long list */
-                column-gap: 10px;
+                column-count: 2; 
+                column-gap: 12px;
             }
 
-            .gallery-item {
-                margin-bottom: 10px;
-            }
+            .gallery-item { margin-bottom: 12px; }
 
             .gallery-item img {
                 filter: grayscale(0%);
@@ -186,11 +179,8 @@
             }
         }
 
-        /* Very Small Phones - 1 column only if needed */
         @media (max-width: 480px) {
-            .gallery {
-                column-count: 1;
-            }
+            .gallery { column-count: 1; }
         }
     </style>
 </head>
@@ -204,7 +194,7 @@
         </div>
     </nav>
 
-     <header>
+    <header>
         <h1>Static <br>Moments <br>In Motion.</h1>
         <p>A collection of visual experiments exploring the intersection of light, fragments, and fleeting perspectives.</p>
     </header>
@@ -234,7 +224,5 @@
         <p>&copy; 2026 M. S. R. GUPTA | All Perspectives Reserved.</p>
     </footer>
 
-</body>
-</html>
 </body>
 </html>
