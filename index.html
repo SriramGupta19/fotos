@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio | Minimalist Photographer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400&family=Playfair+Display:ital@0;1&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #ffffff;
+            --text-color: #1a1a1a;
+            --accent-color: #7a7a7a;
+            --spacing: 2rem;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: var(--spacing);
+        }
+
+        /* Navigation */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 4rem;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 400;
+            text-decoration: none;
+            color: var(--text-color);
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--accent-color);
+            margin-left: 20px;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-color);
+        }
+
+        /* Header */
+        header {
+            max-width: 600px;
+            margin-bottom: 5rem;
+        }
+
+        header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 400;
+            margin-bottom: 1rem;
+            line-height: 1.1;
+        }
+
+        header p {
+            color: var(--accent-color);
+            font-size: 1.1rem;
+        }
+
+        /* Gallery Grid */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 20px;
+        }
+
+        .gallery-item {
+            overflow: hidden;
+            background-color: #f9f9f9;
+            cursor: pointer;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 6rem;
+            padding-bottom: 2rem;
+            border-top: 1px solid #eee;
+            padding-top: 2rem;
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: var(--accent-color);
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 768px) {
+            :root { --spacing: 1.2rem; }
+            header h1 { font-size: 2.2rem; }
+            .gallery { grid-template-columns: 1fr; }
+            nav { flex-direction: column; gap: 1rem; }
+            .nav-links a { margin-left: 0; margin-right: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="#" class="logo">ELARA VANCE</a>
+        <div class="nav-links">
+            <a href="#work">Work</a>
+            <a href="#about">About</a>
+            <a href="mailto:hello@example.com">Contact</a>
+        </div>
+    </nav>
+
+    <header>
+        <h1>Visual stories captured through a quiet lens.</h1>
+        <p>Specializing in editorial, lifestyle, and architectural photography based in London.</p>
+    </header>
+
+    <main class="gallery" id="work">
+        <div class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=800" alt="Portrait">
+        </div>
+        <div class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1449034446853-66c86144b0ad?auto=format&fit=crop&q=80&w=800" alt="Architecture">
+        </div>
+        <div class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&q=80&w=800" alt="Nature">
+        </div>
+        <div class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1496449903678-68ddcb189a24?auto=format&fit=crop&q=80&w=800" alt="Urban">
+        </div>
+        <div class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&q=80&w=800" alt="Camera">
+        </div>
+        <div class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&q=80&w=800" alt="Mountains">
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Elara Vance Photography</p>
+        <p>Built with focus & simplicity.</p>
+    </footer>
+
+</body>
+</html>
