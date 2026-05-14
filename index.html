@@ -30,7 +30,7 @@
             padding: 0 var(--spacing);
         }
 
-        /* --- NAVIGATION --- */
+        /* --- NAVIGATION (Optimized for side-by-side) --- */
         nav {
             display: flex;
             justify-content: space-between;
@@ -44,36 +44,44 @@
             background: rgba(10, 10, 10, 0.85);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
+            flex-wrap: nowrap; /* Prevents wrapping on small screens */
         }
 
         .logo {
             font-family: 'Syncopate', sans-serif;
             font-weight: 700;
-            font-size: clamp(0.9rem, 2vw, 1.1rem);
-            letter-spacing: 2px;
+            font-size: clamp(0.75rem, 2vw, 1.1rem); /* Smaller starting size for mobile */
+            letter-spacing: 1px;
             text-decoration: none;
             color: var(--text-color);
             text-transform: uppercase;
+            white-space: nowrap; /* Keeps name on one line */
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 15px; /* Spacing between links */
         }
 
         .nav-links a {
             text-decoration: none;
             color: var(--dim-text);
-            font-size: 0.7rem;
+            font-size: 0.65rem; /* Slightly smaller for better fit */
             text-transform: uppercase;
             letter-spacing: 1px;
-            margin-left: 20px;
             transition: 0.3s ease;
+            white-space: nowrap;
         }
 
         .nav-links a:hover { color: var(--text-color); }
 
-        /* --- HEADER (Repositioned Caption) --- */
+        /* --- HEADER --- */
         header {
             margin: 25vh 0 12vh 0;
             display: flex;
             flex-direction: column;
-            align-items: flex-start; /* Keeps everything grouped on the left */
+            align-items: flex-start;
         }
 
         header h1 {
@@ -90,7 +98,7 @@
             font-size: clamp(0.85rem, 1.2vw, 1rem);
             color: var(--dim-text);
             max-width: 500px;
-            border-top: 1px solid var(--accent-color); /* Line above text instead of side */
+            border-top: 1px solid var(--accent-color);
             padding-top: 1.5rem;
             text-transform: uppercase;
             letter-spacing: 1px;
@@ -161,7 +169,7 @@
         }
 
         @media (max-width: 768px) {
-            :root { --spacing: 1.5rem; }
+            :root { --spacing: 1.2rem; } /* Slightly tighter spacing for mobile */
             header { margin-top: 18vh; }
             header h1 { letter-spacing: -1px; }
             header p { max-width: 100%; }
@@ -181,6 +189,8 @@
 
         @media (max-width: 480px) {
             .gallery { column-count: 1; }
+            .nav-links { gap: 10px; } /* Tighter gap for very small screens */
+            .logo { letter-spacing: 0px; } /* Saves space */
         }
     </style>
 </head>
@@ -212,7 +222,7 @@
         <div class="gallery-item" data-label="004 / HORIZON">
             <img src="images/4.jpeg" alt="Visual 04">
         </div>
-        <div class="gallery-item" data-label="005 / WITNESS">
+        <div class="gallery-item" data-label="005 / SOLITUDE">
             <img src="images/5.jpeg" alt="Visual 05">
         </div>
         <div class="gallery-item" data-label="006 / ETHER">
