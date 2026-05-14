@@ -3,16 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio | Minimalist Photographer</title>
+    <title>M. S. R. GUPTA | Portfolio</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400&family=Playfair+Display:ital@0;1&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Inter:wght@300;500&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #ffffff;
-            --text-color: #1a1a1a;
-            --accent-color: #7a7a7a;
-            --spacing: 2rem;
+            --bg-color: #0a0a0a;
+            --text-color: #f5f5f5;
+            --accent-color: #4a4a4a;
+            --dim-text: #888;
+            --spacing: 3rem;
         }
 
         * {
@@ -25,144 +26,192 @@
             font-family: 'Inter', sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color);
-            line-height: 1.6;
+            line-height: 1.4;
             padding: var(--spacing);
+            overflow-x: hidden;
         }
 
-        /* Navigation */
+        /* Creative Navigation */
         nav {
             display: flex;
             justify-content: space-between;
-            align-items: baseline;
-            margin-bottom: 4rem;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 2rem var(--spacing);
+            z-index: 100;
+            background: linear-gradient(to bottom, var(--bg-color) 40%, transparent);
         }
 
         .logo {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.5rem;
-            font-weight: 400;
+            font-family: 'Syncopate', sans-serif;
+            font-weight: 700;
+            font-size: 1.2rem;
+            letter-spacing: 2px;
             text-decoration: none;
             color: var(--text-color);
-            letter-spacing: -0.5px;
+            text-transform: uppercase;
         }
 
         .nav-links a {
             text-decoration: none;
-            color: var(--accent-color);
-            margin-left: 20px;
-            font-size: 0.9rem;
-            transition: color 0.3s ease;
+            color: var(--dim-text);
+            margin-left: 30px;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: 0.4s;
         }
 
         .nav-links a:hover {
             color: var(--text-color);
+            padding-left: 5px;
         }
 
-        /* Header */
+        /* Staggered Header */
         header {
-            max-width: 600px;
-            margin-bottom: 5rem;
+            margin: 12vh 0 8vh 0;
+            max-width: 900px;
         }
 
         header h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 3rem;
-            font-weight: 400;
-            margin-bottom: 1rem;
-            line-height: 1.1;
+            font-family: 'Syncopate', sans-serif;
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            font-weight: 700;
+            line-height: 0.9;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+            letter-spacing: -2px;
         }
 
         header p {
-            color: var(--accent-color);
             font-size: 1.1rem;
+            color: var(--dim-text);
+            max-width: 450px;
+            margin-left: auto; /* Pushes text to the right for asymmetry */
+            border-left: 1px solid var(--accent-color);
+            padding-left: 2rem;
         }
 
-        /* Gallery Grid */
+        /* The Creative Grid */
         .gallery {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 40px;
+            margin-bottom: 10vh;
         }
 
         .gallery-item {
+            position: relative;
             overflow: hidden;
-            background-color: #f9f9f9;
-            cursor: pointer;
+            background-color: #111;
+            transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
         }
+
+        /* Intentional Asymmetry - Staggered columns */
+        .gallery-item:nth-child(odd) { grid-column: span 7; }
+        .gallery-item:nth-child(even) { grid-column: span 5; margin-top: 5rem; }
+        .gallery-item:nth-child(3n) { grid-column: span 12; max-height: 70vh; }
 
         .gallery-item img {
             width: 100%;
-            height: auto;
+            height: 100%;
+            object-fit: cover;
             display: block;
-            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            filter: grayscale(100%);
+            opacity: 0.7;
+            transition: all 0.8s ease;
         }
 
         .gallery-item:hover img {
-            transform: scale(1.05);
+            filter: grayscale(0%);
+            opacity: 1;
+            transform: scale(1.03);
         }
 
-        /* Footer */
+        .gallery-item::after {
+            content: attr(data-label);
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            font-size: 0.7rem;
+            font-family: 'Syncopate';
+            opacity: 0;
+            transform: translateY(10px);
+            transition: 0.4s;
+        }
+
+        .gallery-item:hover::after {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Minimal Footer */
         footer {
-            margin-top: 6rem;
-            padding-bottom: 2rem;
-            border-top: 1px solid #eee;
-            padding-top: 2rem;
             display: flex;
             justify-content: space-between;
-            font-size: 0.8rem;
-            color: var(--accent-color);
+            align-items: center;
+            padding-top: 3rem;
+            border-top: 1px solid #222;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--dim-text);
         }
 
-        /* Mobile Adjustments */
+        /* Mobile Viewports */
         @media (max-width: 768px) {
-            :root { --spacing: 1.2rem; }
-            header h1 { font-size: 2.2rem; }
-            .gallery { grid-template-columns: 1fr; }
-            nav { flex-direction: column; gap: 1rem; }
-            .nav-links a { margin-left: 0; margin-right: 20px; }
+            :root { --spacing: 1.5rem; }
+            nav { padding: 1.5rem; }
+            header p { margin-left: 0; }
+            .gallery-item:nth-child(n) { 
+                grid-column: span 12; 
+                margin-top: 0; 
+                max-height: 50vh;
+            }
+            .nav-links { display: none; } /* Mobile simplicity */
         }
     </style>
 </head>
 <body>
 
     <nav>
-        <a href="#" class="logo">ELARA VANCE</a>
+        <a href="#" class="logo">M.S.R. GUPTA</a>
         <div class="nav-links">
-            <a href="#work">Work</a>
-            <a href="#about">About</a>
+            <a href="#work">Archive</a>
+            <a href="#about">Info</a>
             <a href="mailto:hello@example.com">Contact</a>
         </div>
     </nav>
 
     <header>
-        <h1>Visual stories captured through a quiet lens.</h1>
-        <p>Specializing in editorial, lifestyle, and architectural photography based in London.</p>
+        <h1>Static <br>Moments <br>In Motion.</h1>
+        <p>A collection of visual experiments exploring the intersection of light, architecture, and solitude. Based in Hyderabad.</p>
     </header>
 
     <main class="gallery" id="work">
-        <div class="gallery-item">
-            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=800" alt="Portrait">
+        <div class="gallery-item" data-label="01 / URBAN SHADOWS">
+            <img src="https://images.unsplash.com/photo-1449034446853-66c86144b0ad?auto=format&fit=crop&q=80&w=1200" alt="Architecture">
         </div>
-        <div class="gallery-item">
-            <img src="https://images.unsplash.com/photo-1449034446853-66c86144b0ad?auto=format&fit=crop&q=80&w=800" alt="Architecture">
+        <div class="gallery-item" data-label="02 / VOID">
+            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=1200" alt="Portrait">
         </div>
-        <div class="gallery-item">
-            <img src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&q=80&w=800" alt="Nature">
+        <div class="gallery-item" data-label="03 / MONOLITH">
+            <img src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&q=80&w=1600" alt="Nature">
         </div>
-        <div class="gallery-item">
-            <img src="https://images.unsplash.com/photo-1496449903678-68ddcb189a24?auto=format&fit=crop&q=80&w=800" alt="Urban">
+        <div class="gallery-item" data-label="04 / NOCTURNAL">
+            <img src="https://images.unsplash.com/photo-1496449903678-68ddcb189a24?auto=format&fit=crop&q=80&w=1200" alt="Urban">
         </div>
-        <div class="gallery-item">
-            <img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&q=80&w=800" alt="Camera">
-        </div>
-        <div class="gallery-item">
-            <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&q=80&w=800" alt="Mountains">
+        <div class="gallery-item" data-label="05 / RAW FORM">
+            <img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&q=80&w=1200" alt="Camera">
         </div>
     </main>
 
     <footer>
-        <p>&copy; 2026 Elara Vance Photography</p>
-        <p>Built with focus & simplicity.</p>
+        <p>&copy; 2026 M. S. R. GUPTA</p>
+        <p>Built for the bold</p>
     </footer>
 
 </body>
