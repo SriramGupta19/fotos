@@ -28,7 +28,6 @@
             color: var(--text-color);
             line-height: 1.4;
             padding: 0 var(--spacing);
-            overflow-x: hidden;
         }
 
         /* --- NAVIGATION --- */
@@ -71,7 +70,7 @@
 
         /* --- HEADER --- */
         header {
-            margin: 22vh 0 12vh 0;
+            margin: 22vh 0 10vh 0;
             max-width: 1200px;
         }
 
@@ -81,48 +80,43 @@
             font-weight: 700;
             line-height: 0.9;
             text-transform: uppercase;
-            margin-bottom: 3rem;
+            margin-bottom: 2.5rem;
             letter-spacing: -3px;
         }
 
         header p {
             font-size: clamp(0.9rem, 1.5vw, 1.1rem);
             color: var(--dim-text);
-            max-width: 420px;
+            max-width: 450px;
             margin-left: auto;
             border-left: 1px solid var(--accent-color);
             padding: 0.5rem 0 0.5rem 2rem;
         }
 
-        /* --- NON-CROPPING CREATIVE GRID --- */
+        /* --- SMART MASONRY LAYOUT --- */
         .gallery {
-            display: grid;
-            grid-template-columns: repeat(12, 1fr);
-            gap: 4vw;
-            margin-bottom: 15vh;
-            align-items: start; /* Ensures items stay at their natural height */
+            /* This creates columns that images flow into */
+            column-count: 2; 
+            column-gap: 3vw;
+            width: 100%;
+            margin-bottom: 10vh;
         }
 
         .gallery-item {
+            /* Critical for column layout to prevent image splitting */
+            break-inside: avoid;
+            margin-bottom: 3vw; 
             position: relative;
-            background-color: transparent; /* Removed background to avoid "box" feel */
             transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
         }
 
-        /* Desktop Positioning Logic - Width based, heights remain natural */
-        .gallery-item:nth-child(1) { grid-column: span 7; }
-        .gallery-item:nth-child(2) { grid-column: span 5; margin-top: 15vh; }
-        .gallery-item:nth-child(3) { grid-column: span 10; grid-offset: 1; margin: 8vh auto; }
-        .gallery-item:nth-child(4) { grid-column: span 6; }
-        .gallery-item:nth-child(5) { grid-column: span 5; margin-top: -10vh; margin-left: 2vw; }
-
         .gallery-item img {
             width: 100%;
-            height: auto; /* Natural aspect ratio maintained */
+            height: auto;
             display: block;
             filter: grayscale(100%);
-            opacity: 0.7;
-            transition: all 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+            opacity: 0.6;
+            transition: all 0.8s ease;
         }
 
         .gallery-item:hover img {
@@ -131,17 +125,20 @@
             transform: scale(1.02);
         }
 
-        /* Data Labels */
+        /* Label styling - tight and minimal */
         .gallery-item::after {
             content: attr(data-label);
             position: absolute;
-            bottom: -25px; /* Positioned below the photo */
-            left: 0;
+            bottom: 15px;
+            left: 15px;
             font-size: 0.6rem;
             font-family: 'Syncopate';
-            color: var(--dim-text);
+            color: #fff;
+            background: rgba(0,0,0,0.5);
+            padding: 4px 8px;
             opacity: 0;
-            transition: 0.4s;
+            transition: 0.3s;
+            pointer-events: none;
         }
 
         .gallery-item:hover::after {
@@ -150,9 +147,6 @@
 
         /* --- FOOTER --- */
         footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
             padding: 4rem 0 2rem 0;
             border-top: 1px solid #1a1a1a;
             font-size: 0.65rem;
@@ -161,34 +155,41 @@
             color: var(--dim-text);
         }
 
-        /* --- MOBILE RESPONSIVENESS --- */
+        /* --- RESPONSIVE ADJUSTMENTS --- */
+        
+        /* Tablet view - 3 columns */
+        @media (min-width: 1024px) {
+            .gallery {
+                column-count: 3;
+            }
+        }
+
+        /* Mobile view - Tighten up spacing */
         @media (max-width: 768px) {
-            :root { --spacing: 1.5rem; }
-            
-            header { margin-top: 18vh; }
+            :root { --spacing: 1.2rem; }
+            header { margin-top: 15vh; }
             header h1 { letter-spacing: -1px; }
-            header p { margin-left: 0; }
+            header p { margin-left: 0; border-left: none; padding-left: 0; border-top: 1px solid var(--accent-color); padding-top: 1rem; }
 
             .gallery {
-                display: flex;
-                flex-direction: column;
-                gap: 4rem; /* More space for labels on mobile */
+                column-count: 2; /* Still 2 columns on mobile so it doesn't look like a single long list */
+                column-gap: 10px;
             }
 
-            .gallery-item, 
-            .gallery-item:nth-child(n) { 
-                grid-column: span 12 !important; 
-                margin-top: 0 !important; 
-                margin-bottom: 0 !important;
+            .gallery-item {
+                margin-bottom: 10px;
             }
 
             .gallery-item img {
                 filter: grayscale(0%);
                 opacity: 1;
             }
-            .gallery-item::after {
-                opacity: 1;
-                bottom: -20px;
+        }
+
+        /* Very Small Phones - 1 column only if needed */
+        @media (max-width: 480px) {
+            .gallery {
+                column-count: 1;
             }
         }
     </style>
@@ -198,38 +199,42 @@
     <nav>
         <a href="#" class="logo">M.S.R. GUPTA</a>
         <div class="nav-links">
-            <a href="#work">Work</a>
+            <a href="#work">Archive</a>
             <a href="mailto:hello@example.com">Contact</a>
         </div>
     </nav>
 
-    <header>
+     <header>
         <h1>Static <br>Moments <br>In Motion.</h1>
         <p>A collection of visual experiments exploring the intersection of light, fragments, and fleeting perspectives.</p>
     </header>
 
     <main class="gallery" id="work">
-        <!-- These will now scale perfectly without cropping -->
-        <div class="gallery-item" data-label="01 / MONOLITH">
-            <img src="https://images.unsplash.com/photo-1449034446853-66c86144b0ad?auto=format&fit=crop&q=80&w=1200" alt="Architecture">
+        <div class="gallery-item" data-label="001 / MONOLITH">
+            <img src="https://images.unsplash.com/photo-1449034446853-66c86144b0ad?auto=format&fit=crop&q=80&w=1200" alt="Visual 01">
         </div>
-        <div class="gallery-item" data-label="02 / SHADOWS">
-            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=1200" alt="Portrait">
+        <div class="gallery-item" data-label="002 / SHADOWS">
+            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=1200" alt="Visual 02">
         </div>
-        <div class="gallery-item" data-label="03 / EXPANSIONS">
-            <img src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&q=80&w=1800" alt="Nature">
+        <div class="gallery-item" data-label="003 / HORIZON">
+            <img src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&q=80&w=1800" alt="Visual 03">
         </div>
-        <div class="gallery-item" data-label="04 / NIGHTFALL">
-            <img src="https://images.unsplash.com/photo-1496449903678-68ddcb189a24?auto=format&fit=crop&q=80&w=1200" alt="Urban">
+        <div class="gallery-item" data-label="004 / NIGHTFALL">
+            <img src="https://images.unsplash.com/photo-1496449903678-68ddcb189a24?auto=format&fit=crop&q=80&w=1200" alt="Visual 04">
         </div>
-        <div class="gallery-item" data-label="05 / PERSPECTIVE">
-            <img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&q=80&w=1200" alt="Camera">
+        <div class="gallery-item" data-label="005 / DETAIL">
+            <img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&q=80&w=1200" alt="Visual 05">
+        </div>
+        <div class="gallery-item" data-label="006 / URBAN">
+            <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=1200" alt="Visual 06">
         </div>
     </main>
 
     <footer>
-        <p>&copy; 2026 M. S. R. GUPTA</p>
+        <p>&copy; 2026 M. S. R. GUPTA | All Perspectives Reserved.</p>
     </footer>
 
+</body>
+</html>
 </body>
 </html>
