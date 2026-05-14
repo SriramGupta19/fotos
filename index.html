@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>M. S. R. GUPTA | Portfolio</title>
+    <title>M. S. R. GUPTA | Photography</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Inter:wght@300;500&display=swap" rel="stylesheet">
@@ -13,7 +13,7 @@
             --text-color: #f5f5f5;
             --accent-color: #4a4a4a;
             --dim-text: #888;
-            --spacing: 3rem;
+            --spacing: 5vw; /* Fluid spacing based on screen width */
         }
 
         * {
@@ -27,11 +27,11 @@
             background-color: var(--bg-color);
             color: var(--text-color);
             line-height: 1.4;
-            padding: var(--spacing);
+            padding: 0 var(--spacing);
             overflow-x: hidden;
         }
 
-        /* Creative Navigation */
+        /* --- NAVIGATION --- */
         nav {
             display: flex;
             justify-content: space-between;
@@ -40,67 +40,73 @@
             top: 0;
             left: 0;
             width: 100%;
-            padding: 2rem var(--spacing);
-            z-index: 100;
-            background: linear-gradient(to bottom, var(--bg-color) 40%, transparent);
+            padding: 1.5rem var(--spacing);
+            z-index: 1000;
+            /* Glassmorphism for mobile & web readability */
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
         }
 
         .logo {
             font-family: 'Syncopate', sans-serif;
             font-weight: 700;
-            font-size: 1.2rem;
+            font-size: clamp(0.9rem, 2vw, 1.1rem);
             letter-spacing: 2px;
             text-decoration: none;
             color: var(--text-color);
             text-transform: uppercase;
         }
 
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
         .nav-links a {
             text-decoration: none;
             color: var(--dim-text);
-            margin-left: 30px;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             text-transform: uppercase;
             letter-spacing: 1px;
-            transition: 0.4s;
+            transition: 0.3s ease;
         }
 
         .nav-links a:hover {
             color: var(--text-color);
-            padding-left: 5px;
         }
 
-        /* Staggered Header */
+        /* --- HEADER --- */
         header {
-            margin: 12vh 0 8vh 0;
-            max-width: 900px;
+            margin: 20vh 0 10vh 0;
+            max-width: 1200px;
         }
 
         header h1 {
             font-family: 'Syncopate', sans-serif;
-            font-size: clamp(2.5rem, 6vw, 5rem);
+            font-size: clamp(2.5rem, 10vw, 6.5rem); /* Extremely responsive size */
             font-weight: 700;
-            line-height: 0.9;
+            line-height: 0.85;
             text-transform: uppercase;
-            margin-bottom: 2rem;
-            letter-spacing: -2px;
+            margin-bottom: 3rem;
+            letter-spacing: -3px;
         }
 
         header p {
-            font-size: 1.1rem;
+            font-size: clamp(0.9rem, 1.5vw, 1.1rem);
             color: var(--dim-text);
-            max-width: 450px;
-            margin-left: auto; /* Pushes text to the right for asymmetry */
+            max-width: 400px;
+            margin-left: auto;
             border-left: 1px solid var(--accent-color);
-            padding-left: 2rem;
+            padding: 0.5rem 0 0.5rem 2rem;
         }
 
-        /* The Creative Grid */
+        /* --- CREATIVE GRID (Desktop & Tablet) --- */
         .gallery {
             display: grid;
             grid-template-columns: repeat(12, 1fr);
-            gap: 40px;
-            margin-bottom: 10vh;
+            gap: 2vw;
+            margin-bottom: 15vh;
         }
 
         .gallery-item {
@@ -110,10 +116,12 @@
             transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
         }
 
-        /* Intentional Asymmetry - Staggered columns */
-        .gallery-item:nth-child(odd) { grid-column: span 7; }
-        .gallery-item:nth-child(even) { grid-column: span 5; margin-top: 5rem; }
-        .gallery-item:nth-child(3n) { grid-column: span 12; max-height: 70vh; }
+        /* Desktop Staggered Logic */
+        .gallery-item:nth-child(1) { grid-column: span 7; height: 60vh; }
+        .gallery-item:nth-child(2) { grid-column: span 5; height: 50vh; margin-top: 10vh; }
+        .gallery-item:nth-child(3) { grid-column: span 12; height: 80vh; margin: 5vh 0; }
+        .gallery-item:nth-child(4) { grid-column: span 5; height: 55vh; }
+        .gallery-item:nth-child(5) { grid-column: span 7; height: 65vh; margin-top: -5vh; }
 
         .gallery-item img {
             width: 100%;
@@ -121,26 +129,29 @@
             object-fit: cover;
             display: block;
             filter: grayscale(100%);
-            opacity: 0.7;
-            transition: all 0.8s ease;
+            opacity: 0.6;
+            transition: all 0.9s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .gallery-item:hover img {
             filter: grayscale(0%);
             opacity: 1;
-            transform: scale(1.03);
+            transform: scale(1.05);
         }
 
+        /* Caption Overlay */
         .gallery-item::after {
             content: attr(data-label);
             position: absolute;
             bottom: 20px;
             left: 20px;
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             font-family: 'Syncopate';
+            color: #fff;
             opacity: 0;
             transform: translateY(10px);
             transition: 0.4s;
+            pointer-events: none;
         }
 
         .gallery-item:hover::after {
@@ -148,30 +159,53 @@
             transform: translateY(0);
         }
 
-        /* Minimal Footer */
+        /* --- FOOTER --- */
         footer {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding-top: 3rem;
-            border-top: 1px solid #222;
-            font-size: 0.7rem;
+            padding: 4rem 0 2rem 0;
+            border-top: 1px solid #1a1a1a;
+            font-size: 0.65rem;
             text-transform: uppercase;
             letter-spacing: 1px;
             color: var(--dim-text);
         }
 
-        /* Mobile Viewports */
+        /* --- MOBILE RESPONSIVENESS (Max 768px) --- */
         @media (max-width: 768px) {
             :root { --spacing: 1.5rem; }
-            nav { padding: 1.5rem; }
-            header p { margin-left: 0; }
-            .gallery-item:nth-child(n) { 
-                grid-column: span 12; 
-                margin-top: 0; 
-                max-height: 50vh;
+            
+            nav { padding: 1rem var(--spacing); }
+
+            header { margin-top: 15vh; }
+            header h1 { letter-spacing: -1px; margin-bottom: 2rem; }
+            header p { margin-left: 0; max-width: 100%; }
+
+            /* Flatten the grid for mobile scrollability */
+            .gallery {
+                display: flex;
+                flex-direction: column;
+                gap: 1.5rem;
             }
-            .nav-links { display: none; } /* Mobile simplicity */
+
+            .gallery-item, 
+            .gallery-item:nth-child(n) { 
+                grid-column: span 12 !important; 
+                margin-top: 0 !important; 
+                margin-bottom: 0 !important;
+                height: 60vh !important;
+            }
+
+            /* On mobile, show color and label by default since there's no "hover" */
+            .gallery-item img {
+                filter: grayscale(0%);
+                opacity: 0.9;
+            }
+            .gallery-item::after {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
     </style>
 </head>
@@ -180,38 +214,37 @@
     <nav>
         <a href="#" class="logo">M.S.R. GUPTA</a>
         <div class="nav-links">
-            <a href="#work">Archive</a>
-            <a href="#about">Info</a>
-            <a href="mailto:hello@example.com">Contact</a>
+            <a href="#work">Work</a>
+            <a href="mailto:contact@example.com">Contact</a>
         </div>
     </nav>
 
     <header>
-        <h1>Static <br>Moments <br>In Motion.</h1>
-        <p>A collection of visual experiments exploring the intersection of light, architecture, and solitude. Based in Hyderabad.</p>
+        <h1>RAW<br>CAPTURE.</h1>
+        <p>Documenting the silence of urban landscapes and the grit of modern architecture. Based in Hyderabad.</p>
     </header>
 
     <main class="gallery" id="work">
-        <div class="gallery-item" data-label="01 / URBAN SHADOWS">
+        <div class="gallery-item" data-label="01 / CONCRETE">
             <img src="https://images.unsplash.com/photo-1449034446853-66c86144b0ad?auto=format&fit=crop&q=80&w=1200" alt="Architecture">
         </div>
-        <div class="gallery-item" data-label="02 / VOID">
+        <div class="gallery-item" data-label="02 / SOLITUDE">
             <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=1200" alt="Portrait">
         </div>
-        <div class="gallery-item" data-label="03 / MONOLITH">
+        <div class="gallery-item" data-label="03 / HORIZON">
             <img src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&q=80&w=1600" alt="Nature">
         </div>
         <div class="gallery-item" data-label="04 / NOCTURNAL">
             <img src="https://images.unsplash.com/photo-1496449903678-68ddcb189a24?auto=format&fit=crop&q=80&w=1200" alt="Urban">
         </div>
-        <div class="gallery-item" data-label="05 / RAW FORM">
+        <div class="gallery-item" data-label="05 / GLASS">
             <img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&q=80&w=1200" alt="Camera">
         </div>
     </main>
 
     <footer>
         <p>&copy; 2026 M. S. R. GUPTA</p>
-        <p>Built for the bold</p>
+        <p>Photography & Art</p>
     </footer>
 
 </body>
